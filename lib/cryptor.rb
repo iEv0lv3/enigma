@@ -6,12 +6,12 @@ class Cryptor
               :date,
               :enigma_shift
 
-  def initialize
-    @message = nil
+  def initialize(text, key = '', date = '')
+    @message = text
     @cipher_text = nil
-    @key = nil
+    @key = key
     @offset = nil
-    @date = nil
+    @date = date
     @enigma_shift = nil
   end
 end
