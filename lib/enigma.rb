@@ -3,11 +3,7 @@ require 'date'
 class Enigma
   attr_reader :encrypt_group
 
-  def initialize
-    
-  end
-
-  def encrypt(message, key, date)
+  def encrypt(message, key = '', date = '')
     # (message, key, date)
 
     # The encrypt method returns a hash with three keys:
