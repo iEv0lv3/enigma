@@ -1,15 +1,21 @@
 require 'date'
+require './lib/modules/shift'
+require './lib/modules/cipher'
 
 class Enigma
+  include Shift
+  include Cipher
+
   attr_reader :encrypt_group
 
   def encrypt(message, key = '', date = '')
-    # (message, key, date)
-
+    new_key = Key.new(key)
+    new_date = Offset.new(date)
+    downcase_message = message.downcase
+    shift = create_shift(new_key, new_date)
+    encrypted = encrypt_message(downcase_message, shift)
+    require 'pry'; binding.pry
     # The encrypt method returns a hash with three keys:
-    @encrypt_group[:encryption] = message
-    @encrypt_group[:key] = key
-    @encrypt_group[:date] = date
     # :encryption => the encrypted String
     # :key => the key used for encryption as a String
     # :date => the date used for encryption as a String in the form DDMMYY
