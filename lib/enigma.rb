@@ -6,8 +6,6 @@ class Enigma
   include Shift
   include Cipher
 
-  attr_reader :encrypt_group
-
   def encrypt(message, key = '', date = '')
     new_key = Key.new(key)
     new_date = Offset.new(date)
@@ -19,11 +17,6 @@ class Enigma
     # :encryption => the encrypted String
     # :key => the key used for encryption as a String
     # :date => the date used for encryption as a String in the form DDMMYY
-    @encrypt_group = {
-      :encryption => '',
-      :key => '',
-      :date => ''
-    }
   end
 
   def decrypt
