@@ -13,5 +13,10 @@ class Offset
   def split_date_set(date_set)
     date_split = date_set.to_s.split(//)
     date_split[-4..-1]
+    dates_to_integers(date_split[-4..-1])
+  end
+
+  def dates_to_integers(date_split)
+    date_split.map(&:to_i)
   end
 end
