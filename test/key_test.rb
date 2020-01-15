@@ -29,8 +29,8 @@ class KeyTest < Minitest::Test
     key_set1 = key1.make_keys(key1.digits)
     key_set2 = key2.make_keys(key2.digits)
 
-    assert_equal [4, 4, 3, 12], key_set1
-    assert_equal [7, 11, 8, 9], key_set2
+    assert_equal [4, 40, 3, 39], key_set1
+    assert_equal [34, 47, 71, 18], key_set2
   end
 
   def test_element_cons_can_be_created_and_added
@@ -50,7 +50,7 @@ class KeyTest < Minitest::Test
     key_set1 = key1.add_elements(expected1)
     key_set2 = key2.add_elements(expected2)
 
-    assert_equal [4, 4, 3, 12], key_set1
-    assert_equal [7, 11, 8, 9], key_set2
+    assert_equal [4, 40, 3, 39], key_set1
+    assert_equal [34, 47, 71, 18], key_set2
   end
 end
