@@ -12,20 +12,31 @@ class Enigma
     downcase_message = message.downcase
     shift = create_shift(new_key, new_date)
     encrypted = encrypt_message(downcase_message, shift)
-    require 'pry'; binding.pry
-    # The encrypt method returns a hash with three keys:
-    # :encryption => the encrypted String
-    # :key => the key used for encryption as a String
-    # :date => the date used for encryption as a String in the form DDMMYY
+    encrypt_hash(encrypted, new_key, new_date)
   end
 
-  def decrypt
-    # (cipher_text, key, date)
+  def encrypt_hash(encrypted, new_key, new_date)
+    {
+      encryption: encrypted,
+      key: new_key.digits,
+      date: new_date.date
+    }
+  end
 
-    # The decrypt method returns a hash with three keys:
+  def decrypt_hash(decrypted, new_key, new_date)
+    {
+      decryption: decrypted,
+      key: new_key.digits,
+      date: new_date.date
+    }
+  end
 
-    # :decryption => the decrypted String
-    # :key => the key used for decryption as a String
-    # :date => the date used for decryption as a String in the form DDMMYY
+  def decrypt(encrypted_message, key = '', date = '')
+    new_key = Key.new(key)
+    new_date = Offset.new(date)
+    downcase_message = encrypted_message.downcase
+    shift = create_shift(new_key, new_date)
+    decrypted = decrypt_message(downcase_message, shift)
+    decrypt_hash(decrypted, new_key, new_date)
   end
 end
