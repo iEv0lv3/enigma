@@ -2,6 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/cryptor'
 
 class CryptorTest < Minitest::Test
@@ -13,12 +14,10 @@ class CryptorTest < Minitest::Test
 
   def test_cryptor_can_have_attributes
     cryptor = Cryptor.new('hello')
+    cryptor.stubs(:offset).returns('160782')
+    cryptor.stubs(:key).returns('04039')
 
-    assert_equal 'hello', cryptor.message
-    assert_nil cryptor.cipher_text
-    assert_equal '', cryptor.key
-    assert_nil cryptor.offset
-    assert_equal '', cryptor.date
-    assert_nil cryptor.enigma_shift
+    assert_equal '160782', cryptor.offset
+    assert_equal '04039', cryptor.key
   end
 end
