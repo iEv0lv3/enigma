@@ -5,15 +5,20 @@ class Key
     @digits = (key.empty? ? ('%05d' % rand(5**5)) : key)
   end
 
-  def make_keys(key)
-    elements = key.split(//)
-    element_cons(elements)
+  def make_keys(key_digits)
+    elements = create_key_elements(key_digits)
+    cons = element_cons(elements)
+    add_elements(cons)
+  end
+
+  def create_key_elements(key_digits)
+    key_digits.split(//)
   end
 
   def element_cons(elements)
-    elements_cons = []
-    elements.each_cons(2) { |numbers| elements_cons << numbers }
-    add_elements(elements_cons)
+    the_cons = []
+    elements.each_cons(2) { |numbers| the_cons << numbers }
+    the_cons
   end
 
   def add_elements(element_cons)
