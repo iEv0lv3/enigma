@@ -1,6 +1,9 @@
 require 'date'
 require './lib/modules/shift'
 require './lib/modules/cipher'
+require_relative 'cryptor'
+require_relative 'decryptor'
+require_relative 'encryptor'
 require_relative 'key'
 require_relative 'offset'
 
@@ -34,5 +37,16 @@ class Enigma
       key: crypt_key.digits,
       date: crypt_date.date
     }
+  end
+
+  def crack(message, date = '')
+    key = '999999'
+    until decrypt(message, key, date)[:decryption][-4..-1] == " end" || key == '000000'
+      decrypt(message, key, date)[:key]
+      num_key = key.to_i
+      num_key -= 1 if num_key > 0
+      key = '%05d' % num_key
+    end
+    decrypt(message, key, date)
   end
 end
