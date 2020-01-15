@@ -1,4 +1,8 @@
+require_relative 'character'
+
 module Shift
+  include Character
+
   def create_shift(new_key, new_date)
     shift_key = new_key.make_keys(new_key.digits)
     shift_offset = new_date.create_offset(new_date.date)
@@ -9,10 +13,13 @@ module Shift
     shift_offset.zip(shift_key.cycle).map(&:sum)
   end
 
-  def apply_shift(indexes, shift)
+  def apply_shift(indexes, shift, flag)
     shift_sets = create_shift_sets(indexes)
-    shift_indexes_sum = add_shift_to_indexes(shift_sets, shift)
-    require 'pry'; binding.pry
+    if flag == 'encrypt'
+      add_shift_to_indexes(shift_sets, shift)
+    elsif flag == 'decrypt'
+      remove_shift_from_indexes(shift_sets, shift)
+    end
   end
 
   def create_shift_sets(indexes)
@@ -22,10 +29,32 @@ module Shift
   end
 
   def add_shift_to_indexes(shift_sets, shift)
-    shift_sets.map do |set|
-      set.map do |index|
-        
+    alphabet = create_character_array
+    cipher_set = []
+    shift_sets.each do |char_set|
+      char_set.each_with_index do |char, index|
+        if char.is_a?(Integer) == false
+          char
+        else
+          cipher_set.push(alphabet.rotate(shift[index])[char])
+        end
       end
     end
+    cipher_set.join
+  end
+
+  def remove_shift_from_indexes(shift_sets, shift)
+    alphabet = create_character_array
+    cipher_set = []
+    shift_sets.each do |char_set|
+      char_set.each_with_index do |char, index|
+        if char.is_a?(Integer) == false
+          char
+        else
+          cipher_set.push(alphabet.rotate(-shift[index])[char])
+        end
+      end
+    end
+    cipher_set.join
   end
 end
