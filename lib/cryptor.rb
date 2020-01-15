@@ -1,17 +1,13 @@
-class Cryptor
-  attr_reader :message,
-              :cipher_text,
-              :key,
-              :offset,
-              :date,
-              :enigma_shift
+require 'date'
+require_relative 'key'
+require_relative 'offset'
 
-  def initialize(text, key = '', date = '')
-    @message = text
-    @cipher_text = nil
-    @key = key
-    @offset = nil
-    @date = date
-    @enigma_shift = nil
+class Cryptor
+  attr_reader :message, :key, :offset
+
+  def initialize(message, key = '', date = '')
+    @message = message
+    @key = Key.new(key)
+    @offset = Offset.new(date)
   end
 end
