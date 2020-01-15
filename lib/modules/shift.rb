@@ -34,7 +34,7 @@ module Shift
     shift_sets.each do |char_set|
       char_set.each_with_index do |char, index|
         if char.is_a?(Integer) == false
-          char
+          cipher_set.push(char)
         else
           cipher_set.push(alphabet.rotate(shift[index])[char])
         end
@@ -49,7 +49,7 @@ module Shift
     shift_sets.each do |char_set|
       char_set.each_with_index do |char, index|
         if char.is_a?(Integer) == false
-          char
+          cipher_set.push(char)
         else
           cipher_set.push(alphabet.rotate(-shift[index])[char])
         end
