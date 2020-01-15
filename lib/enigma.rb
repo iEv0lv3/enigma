@@ -35,4 +35,15 @@ class Enigma
       date: crypt_date.date
     }
   end
+
+  def crack(message, date = '')
+    key = '10000'
+    until decrypt(message, key, date)[:decryption][-4..-1] == " end"
+      decrypt(message, key, date)[:key]
+      num_key = key.to_i
+      num_key -= 1
+      key = '%05d' % num_key
+    end
+    decrypt(message, key, date)
+  end
 end
