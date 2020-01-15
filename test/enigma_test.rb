@@ -16,10 +16,27 @@ class EnigmaTest < Minitest::Test
     assert_instance_of Enigma, cipher
   end
 
-  def test_message_can_be_encrypted
-    enigma = Enigma.new
+  def test_enigma_can_encrypt
+    cipher = Enigma.new
 
-    enigma.encrypt('Wonderful little message!')
-    require 'pry'; binding.pry
+    expected = {
+      encryption: 'keder ohulw',
+      key: '02715',
+      date: '040895'
+    }
+
+    assert_equal expected, cipher.encrypt('hello world', '02715', '040895')
+  end
+
+  def test_enigma_can_decrypt
+    cipher = Enigma.new
+
+    expected = {
+      decryption: 'hello world',
+      key: '02715',
+      date: '040895'
+    }
+
+    assert_equal expected, cipher.decrypt('keder ohulw', '02715', '040895')
   end
 end

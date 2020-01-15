@@ -23,7 +23,7 @@ class Key
 
   def add_elements(element_cons)
     element_cons.map do |element|
-      element[0].to_i + element[1].to_i
+      (element[0] + element[1]).to_i
     end
   end
 end

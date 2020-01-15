@@ -7,18 +7,18 @@ module Cipher
 
   def encrypt_message(message, shift)
     message_split = parse_message(message)
-    shifts_needed = message_size(message_split)
     indexes = message_alphabet_indexes(message_split)
-    cipher_text = apply_shift(indexes, shift)
-    require 'pry'; binding.pry
+    apply_shift(indexes, shift, 'encrypt')
+  end
+
+  def decrypt_message(message, shift)
+    message_split = parse_message(message)
+    indexes = message_alphabet_indexes(message_split)
+    apply_shift(indexes, shift, 'decrypt')
   end
 
   def parse_message(message)
     message.split(//)
-  end
-
-  def message_size(message_split)
-    [message_split.size / 4, message_split.size % 4]
   end
 
   def message_alphabet_indexes(message_split)
