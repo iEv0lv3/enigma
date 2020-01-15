@@ -1,6 +1,8 @@
 require 'date'
 require './lib/modules/shift'
 require './lib/modules/cipher'
+require_relative 'key'
+require_relative 'offset'
 
 class Enigma
   include Shift
@@ -23,14 +25,6 @@ class Enigma
     }
   end
 
-  def decrypt_hash(decrypted, new_key, new_date)
-    {
-      decryption: decrypted,
-      key: new_key.digits,
-      date: new_date.date
-    }
-  end
-
   def decrypt(encrypted_message, key = '', date = '')
     new_key = Key.new(key)
     new_date = Offset.new(date)
@@ -38,5 +32,13 @@ class Enigma
     shift = create_shift(new_key, new_date)
     decrypted = decrypt_message(downcase_message, shift)
     decrypt_hash(decrypted, new_key, new_date)
+  end
+
+  def decrypt_hash(decrypted, new_key, new_date)
+    {
+      decryption: decrypted,
+      key: new_key.digits,
+      date: new_date.date
+    }
   end
 end
