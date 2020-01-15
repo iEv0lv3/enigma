@@ -42,7 +42,7 @@ class ShiftTest < Minitest::Test
     indexes = message_alphabet_indexes(message_split)
     shift_sets = create_shift_sets(indexes)
 
-    expected = "d ytmcqjtlwyaewuhyph mru"
+    expected = "diytmlqjtuwyanwuhgph vru"
 
     assert_equal expected, add_shift_to_indexes(shift_sets, shift)
   end
