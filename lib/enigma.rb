@@ -9,36 +9,30 @@ class Enigma
   include Cipher
 
   def encrypt(message, key = '', date = '')
-    new_key = Key.new(key)
-    new_date = Offset.new(date)
-    downcase_message = message.downcase
-    shift = create_shift(new_key, new_date)
-    encrypted = encrypt_message(downcase_message, shift)
-    encrypt_hash(encrypted, new_key, new_date)
+    encryptor = Encryptor.new(message, key, date)
+    encryptor.build_crypt
+    encrypt_hash(encryptor.secret, encryptor.key, encryptor.offset)
   end
 
-  def encrypt_hash(encrypted, new_key, new_date)
+  def encrypt_hash(encrypted, crypt_key, crypt_date)
     {
       encryption: encrypted,
-      key: new_key.digits,
-      date: new_date.date
+      key: crypt_key.digits,
+      date: crypt_date.date
     }
   end
 
   def decrypt(encrypted_message, key = '', date = '')
-    new_key = Key.new(key)
-    new_date = Offset.new(date)
-    downcase_message = encrypted_message.downcase
-    shift = create_shift(new_key, new_date)
-    decrypted = decrypt_message(downcase_message, shift)
-    decrypt_hash(decrypted, new_key, new_date)
+    decryptor = Decryptor.new(encrypted_message, key, date)
+    decryptor.build_crypt
+    decrypt_hash(decryptor.decrypted, decryptor.key, decryptor.offset)
   end
 
-  def decrypt_hash(decrypted, new_key, new_date)
+  def decrypt_hash(decrypted, crypt_key, crypt_date)
     {
       decryption: decrypted,
-      key: new_key.digits,
-      date: new_date.date
+      key: crypt_key.digits,
+      date: crypt_date.date
     }
   end
 end
