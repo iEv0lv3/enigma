@@ -1,6 +1,8 @@
 require 'date'
 require './lib/modules/shift'
 require './lib/modules/cipher'
+require_relative 'key'
+require_relative 'offset'
 
 class Enigma
   include Shift
