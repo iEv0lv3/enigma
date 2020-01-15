@@ -42,8 +42,8 @@ class OffsetTest < Minitest::Test
     expected1 = offset1.split_date_set(offset1.date.to_i**2)
     expected2 = offset2.split_date_set(offset2.date.to_i**2)
 
-    assert_equal ["4", "4", "0", "0"], expected1
-    assert_equal ["4", "8", "8", "4"], expected2
+    assert_equal ['4', '4', '0', '0'], expected1
+    assert_equal ['4', '8', '8', '4'], expected2
   end
 
   def test_dates_to_integers
