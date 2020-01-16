@@ -40,8 +40,8 @@ class Enigma
   end
 
   def crack(message, date = '')
-    key = '999999'
-    until decrypt(message, key, date)[:decryption][-4..-1] == " end" || key == '000000'
+    key = '99999'
+    until decrypt(message, key, date)[:decryption][-4..-1] == " end" || key == '00000'
       decrypt(message, key, date)[:key]
       num_key = key.to_i
       num_key -= 1 if num_key > 0
